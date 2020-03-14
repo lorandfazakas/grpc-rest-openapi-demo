@@ -1,0 +1,23 @@
+[
+        {
+            "id": 1,
+            "title": "Clean the Kitchen",
+            "description": "Wash the dishes, mop the floor, wipe the table",
+            "urgency" : "low",
+            "isDone": true
+        },
+        {
+            "id": 2,
+            "title": "Write gRPC application",
+            "description": "Define the proto buffers, create data source and implement server code",
+            "urgency" : "normal",
+            "isDone": false
+        },
+        {
+            "id": 3,
+            "title": "Workout",
+            "description": "Bench press, push-ups, dumbbell",
+            "urgency" : "critical",
+            "isDone": false
+        }
+]

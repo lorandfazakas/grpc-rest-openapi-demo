@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/api/annotations.proto";
+
+import "protoc-gen-swagger/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    info: {
+      title: "grpc-rest-openapi-demo";
+      version: "1.0";
+      contact: {
+        name: "Lorand Fazakas";
+        url: "https://github.com/lorandfazakas/grpc-rest-openapi-demo";
+        email: "example@example.com";
+      };
+    };
+    schemes: HTTP;
+    schemes: HTTPS;
+    consumes: "application/json";
+    produces: "application/json";
+};
+
+service ToDoService {
+    // Get all the ToDos
+    rpc GetAllToDos(Empty) returns (ToDos) {
+        option (google.api.http) = {
+            get: "/api/v1/todos"
+        };
+    }
+    
+    // Get ToDo by ID
+    rpc GetToDoByID(ID) returns (ToDo) {
+        option (google.api.http) = {
+            get: "/api/v1/todos/{id}"
+        };
+    }
+
+    // Create a ToDo
+    rpc CreateToDo(ToDo) returns (Empty) {
+        option (google.api.http) = {
+            post: "/api/v1/todos"
+            body: "*"
+        };
+    }
+
+    // Mark as Done
+    rpc FinishToDo(ID) returns (Empty) {
+        option (google.api.http) = {
+            post: "/api/v1/todos/finish"
+            body: "*"
+        };
+    }
+}
+
+message ToDo {
+    int32 id = 1;
+    string title = 2;
+    string description = 3;
+    enum ToDoUrgency {
+        low = 0;
+        normal = 1;
+        critical = 2;
+    }
+    ToDoUrgency urgency = 4;
+    bool isDone = 5;
+};
+
+message ToDos {
+    repeated ToDo toDo = 1;
+};
+
+message ID {
+    int32 id = 1;
+};
+
+message Empty {
+};
